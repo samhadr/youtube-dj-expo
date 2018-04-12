@@ -1,22 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import Colors from '../constants/Colors';
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-  content: {
-    flex: 12,
-    padding: 10,
-  },
   searchForm: {
     flex: 1,
     flexDirection: 'row',
-    top: 0,
-    backgroundColor: '#777',
-    height: 50,
+    backgroundColor: Colors.red,
+    height: 20,
     padding: 10,
+    paddingBottom: 3,
   },
   text: {
     color: '#fff',
@@ -25,16 +18,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 7,
     height: 30,
+    padding: 3,
     color: '#000',
-    borderWidth: 1,
-    borderColor: '#777',
+    // borderWidth: 1,
+    // borderColor: '#fff',
   },
   button: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
-    height: 50,
+    backgroundColor: '#333',
+    height: 30,
   },
   buttonText: {
     color: '#fff',

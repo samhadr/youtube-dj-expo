@@ -30,26 +30,32 @@ export default TabNavigator(
           case 'Home':
             iconName =
               Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+                ? `ios-home`
+                : 'md-home';
             break;
           case 'Search':
-            iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search';
+            iconName = Platform.OS === 'ios' ? `ios-search` : 'md-search';
             break;
           case 'Settings':
             iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+              Platform.OS === 'ios' ? `ios-options` : 'md-options';
         }
         return (
           <Ionicons
             name={iconName}
             size={28}
             style={{ marginBottom: -3, width: 25 }}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            color={focused ? Colors.activeTintColor : Colors.inactiveTintColor}
           />
         );
       },
     }),
+    tabBarOptions: {
+      inactiveBackgroundColor: Colors.red,
+      activeBackgroundColor: Colors.darkRed,
+      inactiveTintColor: Colors.inactiveTintColor,
+      activeTintColor: Colors.activeTintColor,
+    },
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     animationEnabled: false,

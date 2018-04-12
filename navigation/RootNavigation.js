@@ -5,6 +5,8 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
+import Colors from '../constants/Colors';
+
 const RootStackNavigator = StackNavigator(
   {
     Main: {
@@ -13,8 +15,12 @@ const RootStackNavigator = StackNavigator(
   },
   {
     navigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: Colors.red,
+      },
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: 'normal',
+        fontWeight: 'bold',
       },
     }),
   }

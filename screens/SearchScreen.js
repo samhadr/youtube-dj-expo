@@ -14,6 +14,10 @@ import globalStyles from '../styles/GlobalStyles';
 import styles from '../styles/SearchStyles';
 
 class Search extends Component {
+  static navigationOptions = {
+    title: 'Search',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,24 +46,28 @@ class Search extends Component {
       });
   }
 
+  renderResult = ({item}) => (
+    <SearchResult
+      key={item.id.videoId}
+      videoId={item.id.videoId}
+      videoImgSrc={item.snippet.thumbnails.default.url}
+      videoTitle={item.snippet.title}
+    />
+  );
+
+  keyExtractor = (item, index) => item.etag;
+
   renderSearchResults = () => {
     const { searchResults: { items } } = this.state;
 
     if (items) {
       const results = (
         <View style={styles.resultsWrapper}>
-          <Text style={styles.text}>Search Results</Text>
+          {/* <Text>Search Results</Text> */}
           <FlatList
-            keyExtractor={(item) => item.id.videoId}
+            keyExtractor={this.keyExtractor}
             data={items}
-            renderItem={({ item }) => (
-              <SearchResult
-                key={item.id.videoId}
-                videoId={item.id.videoId}
-                videoImgSrc={item.snippet.thumbnails.default.url}
-                videoTitle={item.snippet.title}
-              />
-            )}
+            renderItem={this.renderResult}
           />
         </View>
       );
