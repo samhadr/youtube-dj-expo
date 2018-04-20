@@ -11,11 +11,11 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
-    Search: {
-      screen: SearchScreen,
-    },
     Home: {
       screen: HomeScreen,
+    },
+    Search: {
+      screen: SearchScreen,
     },
     Settings: {
       screen: SettingsScreen,

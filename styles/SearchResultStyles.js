@@ -12,13 +12,11 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
   resultImg: {
-    // flex: 5,
     width: 160,
     height: 116,
     marginRight: 10,
   },
   resultTitle: {
-    // flex: 5,
     width: '50%',
     fontWeight: 'bold',
     flexWrap: 'wrap',
