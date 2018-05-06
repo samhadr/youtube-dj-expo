@@ -7,18 +7,15 @@ import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SessionsScreen from '../screens/SessionsScreen';
 
 export default TabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
     Search: {
       screen: SearchScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    Sessions: {
+      screen: SessionsScreen,
     },
   },
   {
@@ -27,16 +24,13 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Home':
-            iconName =
-              Platform.OS === 'ios'
-                ? `ios-home`
-                : 'md-home';
-            break;
+          // case 'Home':
+          //   iconName = Platform.OS === 'ios' ? `ios-home` : 'md-home';
+          //   break;
           case 'Search':
             iconName = Platform.OS === 'ios' ? `ios-search` : 'md-search';
             break;
-          case 'Settings':
+          case 'Sessions':
             iconName =
               Platform.OS === 'ios' ? `ios-options` : 'md-options';
         }

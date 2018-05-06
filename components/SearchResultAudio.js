@@ -6,12 +6,8 @@ import {
   View,
   Image,
   WebView,
-  TouchableOpacity
 } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
-
-// import searchStyles from '../styles/SearchStyles';
 import styles from '../styles/SearchResultStyles';
 
 const SearchResult = ({
@@ -25,22 +21,7 @@ const SearchResult = ({
       source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
       style={styles.resultImg}
     />
-    <View style={styles.resultInfo}>
-      <Text style={styles.resultTitle}>{videoTitle}</Text>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={this.onPress}
-        title="Add to Playlist"
-        accessibilityLabel="Add to Playlist"
-      >
-        <Ionicons
-          name="md-add"
-          size={14}
-          style={styles.addButtonIcon}
-        />
-        <Text style={styles.addButtonText}>Add to Playlist</Text>
-      </TouchableOpacity>
-    </View>
+    <Text style={styles.resultTitle}>{videoTitle}</Text>
   </View>
 );
 

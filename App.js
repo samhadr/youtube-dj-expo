@@ -1,13 +1,51 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
+
+// AWS API
+import Amplify, { Auth } from 'aws-amplify';
+import config from './config';
+
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigator from './navigation/RootNavigator';
+import HomeNavigator from './navigation/HomeNavigator';
+
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    identityPoolId: config.cognito.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  },
+  Storage: {
+    region: config.s3.REGION,
+    bucket: config.s3.BUCKET,
+    identityPoolId: config.cognito.IDENTITY_POOL_ID
+  },
+  API: {
+    endpoints: [
+      {
+        name: "playlists",
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION
+      },
+    ]
+  }
+});
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      isLoadingComplete: false,
+      isAuthenticated: true
+    }
+  }
+
+  authenticate = (isAuthenticated) => {
+    this.setState({ isAuthenticated });
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -18,14 +56,31 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else {
+    }
+    if (this.state.isAuthenticated){
+      console.log('Auth: ', Auth);
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <RootNavigator />
+          <RootNavigator
+            screenProps={{
+              authenticate: this.authenticate
+            }}
+          />
         </View>
       );
     }
+    console.log('Auth: ', Auth);
+    return (
+      <View style={styles.container}>
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        <HomeNavigator
+          screenProps={{
+            authenticate: this.authenticate
+          }}
+        />
+      </View>
+    );
   }
 
   _loadResourcesAsync = async () => {

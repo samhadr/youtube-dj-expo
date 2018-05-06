@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import Colors from '../constants/Colors';
+
 const styles = StyleSheet.create({
   result: {
     flex: 1,
@@ -16,10 +18,24 @@ const styles = StyleSheet.create({
     height: 116,
     marginRight: 10,
   },
-  resultTitle: {
+  resultInfo: {
     width: '50%',
+  },
+  resultTitle: {
     fontWeight: 'bold',
     flexWrap: 'wrap',
+    marginBottom: 10,
+  },
+  addButton: {
+    flexDirection: 'row',
+  },
+  addButtonIcon: {
+    marginRight: 7,
+    color: Colors.red,
+  },
+  addButtonText: {
+    fontSize: 12,
+    color: Colors.red,
   },
 });
 

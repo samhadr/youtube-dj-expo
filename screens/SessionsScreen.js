@@ -25,8 +25,6 @@ class Sessions extends Component {
   // }
 
   render() {
-    const { resultsVisible } = this.state;
-    const results = resultsVisible ? this.renderSearchResults() : null;
 
     return (
       <View style={globalStyles.container}>

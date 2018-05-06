@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -10,41 +10,41 @@ import {
   Button,
 } from 'react-native';
 
-import { StackNavigator } from 'react-navigation';
 import { WebBrowser } from 'expo';
+
+import SignInScreen from './SignInScreen';
+import SessionsScreen from './SessionsScreen';
 
 import globalStyles from '../styles/GlobalStyles';
 import styles from '../styles/HomeStyles';
+import Colors from '../constants/Colors';
 
-import LoginScreen from './LoginScreen';
-import SessionsScreen from './SessionsScreen';
-
-const HomeNavigator = StackNavigator(
-  {
-    Login: {
-      screen: LoginScreen,
-    },
-    Sessions: {
-      screen: SessionsScreen,
-    },
-  },
-  {
-    navigationOptions: () => ({
-      headerStyle: {
-        backgroundColor: Colors.red,
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }),
-  }
-);
-
-export default class HomeScreen extends React.Component {
+class Home extends Component {
   static navigationOptions = {
     title: 'Home',
   };
+
+  // async signInWithGoogleAsync() {
+  //   try {
+  //     const result = await Expo.Google.logInAsync({
+  //       // androidClientId: YOUR_CLIENT_ID_HERE,
+  //       iosClientId: '139045560234-0juu830irosnfq7u65suouvjvn5k4m0l.apps.googleusercontent.com',
+  //       scopes: ['profile', 'email'],
+  //     });
+
+  //     if (result.type === 'success') {
+  //       return result.accessToken;
+  //     } else {
+  //       return {cancelled: true};
+  //     }
+  //   } catch(e) {
+  //     return {error: true};
+  //   }
+  // }
+
+  handleNav = (screen) => {
+    this.props.navigation.navigate(screen);
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -55,19 +55,26 @@ export default class HomeScreen extends React.Component {
           <View style={styles.div}>
             <Text>Welcome to YouTube DJ!</Text>
           </View>
-          <View style={styles.div}>
+          {/* <View style={styles.div}>
             <Text style={{textAlign: 'center'}}>To host a session, login to your YouTube account and create a new playlist:</Text>
             <Button
               title="Login to YouTube"
-              onPress={() => navigate('Login')}
+              onPress={this.signInWithGoogleAsync}
+              style={styles.button}
+            />
+          </View> */}
+          <View style={styles.div}>
+            <Button
+              title="Sign Up"
+              onPress={() => navigate('SignUp')}
               style={styles.button}
             />
           </View>
           <View style={styles.div}>
-            <Text>To make requests, find a session by ID:</Text>
+            <Text>Already have an account?</Text>
             <Button
-              title="Find Session"
-              onPress={() => navigate('Sessions')}
+              title="Sign In"
+              onPress={() => navigate('SignIn')}
               style={styles.button}
             />
           </View>
@@ -109,3 +116,5 @@ export default class HomeScreen extends React.Component {
     );
   };
 }
+
+export default Home;

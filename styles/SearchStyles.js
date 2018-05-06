@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 3,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#333',

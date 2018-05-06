@@ -1,13 +1,35 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-const HomeNavigator = StackNavigator(
+import HomeScreen from '../screens/HomeScreen';
+import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import MainTabNavigator from '../navigation/MainTabNavigator';
+
+import Colors from '../constants/Colors';
+
+export default StackNavigator(
   {
-    Login: {
-      screen: LoginScreen,
+    Home: {
+      screen: HomeScreen,
+      path: 'home',
+      navigationOptions: {
+        title: 'Home',
+      },
     },
-    Sessions: {
-      screen: SessionsScreen,
+    SignUp: {
+      screen: SignUpScreen,
+      path: 'signup',
+      navigationOptions: {
+        title: 'Sign Up',
+      },
+    },
+    SignIn: {
+      screen: SignInScreen,
+      path: 'login',
+      navigationOptions: {
+        title: 'Sign In',
+      },
     },
   },
   {
