@@ -5,14 +5,17 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
-import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
+import PlaylistsScreen from '../screens/PlaylistsScreen';
 import SessionsScreen from '../screens/SessionsScreen';
 
 export default TabNavigator(
   {
     Search: {
       screen: SearchScreen,
+    },
+    Playlists: {
+      screen: PlaylistsScreen,
     },
     Sessions: {
       screen: SessionsScreen,
@@ -24,15 +27,15 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          // case 'Home':
-          //   iconName = Platform.OS === 'ios' ? `ios-home` : 'md-home';
-          //   break;
           case 'Search':
             iconName = Platform.OS === 'ios' ? `ios-search` : 'md-search';
             break;
+          case 'Playlists':
+            iconName = Platform.OS === 'ios' ? `ios-list` : 'md-list';
+            break;
           case 'Sessions':
             iconName =
-              Platform.OS === 'ios' ? `ios-options` : 'md-options';
+              Platform.OS === 'ios' ? `ios-musical-notes` : 'md-musical-notes';
         }
         return (
           <Ionicons

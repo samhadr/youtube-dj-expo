@@ -6,12 +6,32 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from 'react-native';
+
+import { API } from 'aws-amplify';
 
 import SearchResult from '../components/SearchResult';
 
 import globalStyles from '../styles/GlobalStyles';
 import styles from '../styles/SearchStyles';
+
+const playlistsMock = [{
+  "playlists": [
+    {
+      "title": "eget",
+      "user": "Byrann"
+    },
+    {
+      "title": "ac",
+      "user": "Maurene"
+    },
+    {
+      "title": "molestie",
+      "user": "Herman"
+    }
+  ]
+}];
 
 class Search extends Component {
   static navigationOptions = {
@@ -24,10 +44,12 @@ class Search extends Component {
       text: 'Change Me',
       searchResults: {},
       resultsVisible: false,
+      modalVisible: false,
+      playlists: {},
     };
   }
 
-  onPress = () => {
+  onSearch = () => {
     const { text } = this.state;
     this.getSearchResults(text);
     // this.renderSearchResults();
@@ -46,36 +68,51 @@ class Search extends Component {
       });
   }
 
-  onYouTubeIframeAPIReady = () => {
-    var e = document.getElementById("youtube-audio"),
-        t = document.createElement("img");
-    t.setAttribute("id", "youtube-icon"), t.style.cssText = "cursor:pointer;cursor:hand", e.appendChild(t);
-    var a = document.createElement("div");
-    a.setAttribute("id", "youtube-player"), e.appendChild(a);
-    var o = function (e) {
-      var a = e ? "IDzX9gL.png" : "quyUPXN.png";
-      t.setAttribute("src", "https://i.imgur.com/" + a)
-    };
-    e.onclick = function () {
-      r.getPlayerState() === YT.PlayerState.PLAYING || r.getPlayerState() === YT.PlayerState.BUFFERING ? (r.pauseVideo(), o(!1)) : (r.playVideo(), o(!0))
-    };
-    var r = new YT.Player("youtube-player", {
-      height: "0",
-      width: "0",
-      videoId: e.dataset.video,
-      playerVars: {
-        autoplay: e.dataset.autoplay,
-        loop: e.dataset.loop
-      },
-      events: {
-        onReady: function (e) {
-          r.setPlaybackQuality("small"), o(r.getPlayerState() !== YT.PlayerState.CUED)
-        },
-        onStateChange: function (e) {
-          e.data === YT.PlayerState.ENDED && o(!1)
-        }
-      }
-    })
+  addToPlaylist = () => {
+    // try {
+    //   const playlistsResp = this.getPlaylists();
+    //   console.log('playlists = ', playlists);
+    //   this.setState({
+    //     playlists: playlistsMock,
+    //     modalVisible: visible
+    //   });
+    // } catch (e) {
+    //   alert(e);
+    // }
+    console.log('addToPlaylist click');
+    this.setState({ modalVisible: true });
+  }
+
+  getPlaylists() {
+    return API.get('playlists', '/playlists');
+  }
+
+  showModal = () => {
+    const { modalVisible } = this.state.modalVisible;
+    return (
+      <View style={{marginTop: 22}}>
+        <Modal
+          style={{height: 100, justifyContent: 'center', alignContent: 'center'}}
+          animationType="slide"
+          transparent={false}
+          visible
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text>This is a modal</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ modalVisible: false });
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
   }
 
   renderResult = ({item}) => (
@@ -84,6 +121,7 @@ class Search extends Component {
       videoId={item.id.videoId}
       videoImgSrc={item.snippet.thumbnails.default.url}
       videoTitle={item.snippet.title}
+      addToPlaylist={this.addToPlaylist}
     />
   );
 
@@ -109,8 +147,9 @@ class Search extends Component {
   }
 
   render() {
-    const { resultsVisible } = this.state;
+    const { resultsVisible, modalVisible } = this.state;
     const results = resultsVisible ? this.renderSearchResults() : null;
+    const modal = modalVisible ? this.showModal() : null;
 
     return (
       <View style={globalStyles.container}>
@@ -119,12 +158,12 @@ class Search extends Component {
             style={styles.textInput}
             onChangeText={text => this.setState({ text })}
             placeholder={this.state.text}
-            onSubmitEditing={this.onPress}
+            onSubmitEditing={this.onSearch}
           />
           <TouchableOpacity
             type="submit"
             style={styles.button}
-            onPress={this.onPress}
+            onPress={this.onSearch}
             title="Search"
             accessibilityLabel="Search for videos on YouTube"
           >
@@ -134,6 +173,7 @@ class Search extends Component {
         <View style={globalStyles.content}>
           {results}
         </View>
+        {modal}
       </View>
     );
   }
