@@ -8,6 +8,7 @@ import Colors from '../constants/Colors';
 import SearchScreen from '../screens/SearchScreen';
 import PlaylistsScreen from '../screens/PlaylistsScreen';
 import SessionsScreen from '../screens/SessionsScreen';
+import NewSearchScreen from '../screens/NewSearchScreen';
 
 export default TabNavigator(
   {
@@ -18,7 +19,8 @@ export default TabNavigator(
       screen: PlaylistsScreen,
     },
     Sessions: {
-      screen: SessionsScreen,
+      // screen: SessionsScreen,
+      screen: NewSearchScreen,
     },
   },
   {

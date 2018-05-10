@@ -20,6 +20,16 @@ const globalStyles = StyleSheet.create({
     marginBottom: 15,
     color: 'red',
   },
+  modalContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalClose: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  }
 });
 
 export default globalStyles;

@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flexWrap: 'wrap',
   },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modal4: {
+    height: 300
+  },
 });
 
 export default styles;
