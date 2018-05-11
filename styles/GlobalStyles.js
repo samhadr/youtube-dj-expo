@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const screen = Dimensions.get('window');
 
 const globalStyles = StyleSheet.create({
   container: {
@@ -20,16 +22,35 @@ const globalStyles = StyleSheet.create({
     marginBottom: 15,
     color: 'red',
   },
+  // Typography
+  bold: {
+    fontWeight: 'bold',
+  },
+  emphasis: {
+    fontStyle: 'italic',
+  },
+  modal: {
+    maxHeight: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
   modalContent: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    width: '100%',
   },
   modalClose: {
     position: 'absolute',
-    top: 20,
-    right: 20,
-  }
+    top: -15,
+    right: -10,
+  },
+  modalListItem: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+  },
 });
 
 export default globalStyles;
