@@ -26,21 +26,8 @@ class ModalBox extends Component {
       resultsVisible: false,
       playlistsData: {},
       isOpen: false,
-      isDisabled: false,
-      swipeToClose: true,
-      sliderValue: 0.3
+      videoToAdd: ''
     };
-  }
-
-  componentDidMount() {
-    fetch('https://my.api.mockaroo.com/playlists-basic.json?key=5a2000c0')
-    .then(response => response.json())
-    .then((data) => {
-      this.setState({
-        playlistsData: data,
-        modalVisible: true
-      });
-    });
   }
 
   onSearch = () => {
@@ -116,17 +103,33 @@ class ModalBox extends Component {
     return null;
   }
 
-  addToPlaylist = () => {
-    this.setState({isOpen: true});
+  addToPlaylist = (videoId) => {
+    console.log('videoId = ', videoId);
+    this.getPlaylists();
+    this.setState({
+      isOpen: true,
+      videoToAdd: videoId,
+    });
+  }
+
+  getPlaylists = () => {
+    fetch('https://my.api.mockaroo.com/playlists-basic.json?key=5a2000c0')
+    .then(response => response.json())
+    .then((data) => {
+      this.setState({
+        playlistsData: data
+      });
+    });
   }
 
   render() {
-    const { resultsVisible } = this.state;
+    const { resultsVisible, isOpen, videoToAdd } = this.state;
     const results = resultsVisible ? this.renderSearchResults() : null;
+    const showPlaylists = isOpen ? this.showPlaylists() : null;
 
     return (
       <View style={globalStyles.container}>
-      <View style={searchStyles.searchForm}>
+        <View style={searchStyles.searchForm}>
           <TextInput
             style={searchStyles.textInput}
             onChangeText={text => this.setState({ text })}
@@ -156,6 +159,7 @@ class ModalBox extends Component {
         >
           <View style={globalStyles.modalContent}>
             <Text style={globalStyles.heading}>Choose A Playlist</Text>
+            <Text>Video To Add: {videoToAdd}</Text>
             <TouchableOpacity
               onPress={() => this.setState({isOpen: false})}
               style={globalStyles.modalClose} title="close"
@@ -166,7 +170,7 @@ class ModalBox extends Component {
               />
             </TouchableOpacity>
             <ScrollView>
-              {this.showPlaylists()}
+              {showPlaylists}
             </ScrollView>
           </View>
         </Modal>

@@ -23,12 +23,16 @@ class SearchResult extends Component {
     addToPlaylist: PropTypes.func
   }
 
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   modalVisible: false,
-    //   playlists: {},
-    // }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     modalVisible: false,
+  //     playlists: {},
+  //   }
+  // }
+
+  setVideoId = () => {
+    this.props.addToPlaylist(this.props.videoId);
   }
 
   render() {
@@ -45,7 +49,8 @@ class SearchResult extends Component {
           <Text style={styles.resultTitle}>{videoTitle}</Text>
           <TouchableOpacity
             style={styles.addButton}
-            onPress={addToPlaylist}
+            onPress={this.setVideoId}
+            videoId={videoId}
             title="Add to Playlist"
             accessibilityLabel="Add to Playlist"
           >
